@@ -1,0 +1,46 @@
+---
+layout: default
+---
+
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">{{ page.title | escape }}</h1>
+    <p class="post-meta">
+      {%- assign date_format = site.minima.date_format | default: "Logbucheintrag vom %-d.%m.%Y" -%}
+      <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+        {{ page.date | date: date_format }}
+      </time>
+      {%- if page.modified_date -%}
+        ~ 
+        {%- assign mdate = page.modified_date | date_to_xmlschema -%}
+        <time class="dt-modified" datetime="{{ mdate }}" itemprop="dateModified">
+          {{ mdate | date: date_format }}
+        </time>
+      {%- endif -%}
+      {%- if page.author -%}
+        • {% for author in page.author %}
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">{{ author }}</span></span>
+            {%- if forloop.last == false %}, {% endif -%}
+        {% endfor %}
+      {%- endif -%}</p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    {{ content }}
+  </div>
+
+</p>&nbsp;</p>
+{% if page.next.url %}
+<h3>Weiter den Bach runter:</h3> <h2><a class="next" href="/mutterschiff/{{page.next.url}}">🌊 {{page.next.title}} </a></h2>
+{% endif %}
+
+
+{% if page.previous.url %}
+<a class="prev" href="/mutterschiff/{{page.previous.url}}">🚣‍♂️ zurückrudern </a>
+  {% endif %} | <a href="{{ '/' | relative_url }}">🧭 aufs Hauptdeck</a> | <a href="#top">⚓ nach oben</a>
+
+
+  <a class="u-url" href="{{ site.url | relative_url }}" hidden></a>
+</article>
